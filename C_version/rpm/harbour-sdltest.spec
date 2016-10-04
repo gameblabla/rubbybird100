@@ -51,3 +51,4 @@ make -f Makefile.sail install
 %{_datadir}/%{name}/data/tap.bmp
 %{_datadir}/%{name}/data/tick.wav
 %{_datadir}/%{name}/data/tweet.bmp
+%{_datadir}/%{name}/data/copyright.bmp

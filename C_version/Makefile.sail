@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Ofast -I/usr/include/SDL2 -DSELFISHOS -DHOMEDIR
+CFLAGS = -Ofast -I/usr/include/SDL2 -DSELFISHOS
 #-DENABLE_OPENAL -Igorilla-audio/include
 LDFLAGS = -lSDL2 -lm -s -flto
 DEFINES = -Wall
@@ -54,3 +54,4 @@ install:
 	cp ./data/tap.bmp /home/deploy/installroot/usr/share/harbour-rubbybird100/data/tap.bmp
 	cp ./data/tick.wav /home/deploy/installroot/usr/share/harbour-rubbybird100/data/tick.wav
 	cp ./data/tweet.bmp /home/deploy/installroot/usr/share/harbour-rubbybird100/data/tweet.bmp
+	cp ./data/copyright.bmp /home/deploy/installroot/usr/share/harbour-rubbybird100/data/copyright.bmp

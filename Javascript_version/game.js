@@ -75,6 +75,9 @@ window.onload = function()
 	hour[1] = localStorage.getItem("rubbybird100-hour") || 0; 
 	minutes[1] = localStorage.getItem("rubbybird100-minute") || 0; 
 	seconds[1] = localStorage.getItem("rubbybird100-second") || 0; 
+	hour[0] = 0; 
+	minutes[0] = 0; 
+	seconds[0] = 0; 
 	
 	sound[0] = new Howl({ src: ['data/rubby.ogg', 'data/rubby.mp3'], loop: true });
 	sound[1] = new Howl({ src: ['data/dies.ogg', 'data/dies.mp3'] });
@@ -261,7 +264,9 @@ function Titlescreen()
 
 function Draw_time(y, mode)
 {
-	var minutes_toshow = Array(2), sec_toshow = Array(2), hour_toshow = Array(2);
+	var minutes_toshow = Array(3)
+	var sec_toshow = Array(3)
+	var hour_toshow = Array(3);
 	
 	sec_toshow[0] = ((seconds[mode] / 10) % 10) | 0;
 	sec_toshow[1] = ((seconds[mode]) % 10) | 0;
@@ -270,6 +275,8 @@ function Draw_time(y, mode)
 	minutes_toshow[1] = ((minutes[mode]) % 10) | 0;
 	hour_toshow[0] = ((hour[mode] / 10) % 10) | 0;
 	hour_toshow[1] = ((hour[mode]) % 10) | 0;
+	
+	console.log(seconds[0]);
 	
 	Put_sprite(13, 95, 70+y, 20, 20, hour_toshow[0], 1);	
 	Put_sprite(13, 114, 70+y, 20, 20, hour_toshow[1], 1);	
@@ -316,6 +323,7 @@ function thegame_ingame()
 	if (microseconds > 59)
 	{
 		seconds[0] = seconds[0] + 1;
+			console.log(seconds[0]);
 		microseconds = 0;
 		if (seconds[0] > 59)
 		{

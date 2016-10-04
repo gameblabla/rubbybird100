@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/stat.h>
 #ifndef ANDROID
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -818,6 +819,12 @@ void Load_Highscore()
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.rubbybird100", getenv("HOME"));
 		mkdir(letsgohomedir, 0755);
 		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
+	#elif defined(SAILFISHOS)
+		/* Saves in the config directory */
+		char letsgohomedir[256];
+		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.config/harbour-rubbybird100", getenv("HOME"));
+		mkdir(letsgohomedir, 0755);
+		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
 	#elif defined(HOMEDIR)
 		/* Saves in the config directory */
 		char letsgohomedir[128];
@@ -863,6 +870,12 @@ void Save_Highscore()
 		/* Saves in the home directory */
 		char letsgohomedir[128];
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.rubbybird100", getenv("HOME"));
+		mkdir(letsgohomedir, 0755);
+		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
+	#elif defined(SAILFISHOS)
+		/* Saves in the config directory */
+		char letsgohomedir[256];
+		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.config/harbour-rubbybird100", getenv("HOME"));
 		mkdir(letsgohomedir, 0755);
 		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
 	#elif defined(HOMEDIR)
