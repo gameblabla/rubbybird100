@@ -1,0 +1,20 @@
+{
+  "version": "1.00",
+  "name": "Rubby Bird 100",
+  "launch_path": "/index.html",
+  "description": "Rub 'em all",
+  "icons": {
+    "128": "/128.png"
+  },
+  "developer": {
+    "name": "Gameblabla",
+    "url": "https://gameblabla.nl"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "orientation": [ "portrait" ],
+  "default_locale": "en",
+  "fullscreen": "true",
+  "permissions": {}
+}
