@@ -115,7 +115,6 @@ void InitializeGame()
 	
 	Load_Image(1,"data/fond.bmp",0);
 	Load_Image(2,"data/bird.bmp",1);
-	Load_Image(3,"data/fond2.bmp",0);
 	Load_Image(4,"data/logo.bmp",1);
 	Load_Image(5,"data/score.bmp",1);
 	Load_Image(6,"data/go.bmp",1);
@@ -336,6 +335,7 @@ inline void toTitlescreen()
 	minutes[NORMAL] = 0;
 	seconds[NORMAL] = 0;
 	Init_birds();
+	birds_dead = 0;
 }
 
 /*
@@ -384,26 +384,35 @@ void Draw_scorebirds_onscreen()
 		vulnereable_time++;
 	}
 	
-	alert_time++;
-	if (alert_time > 45)
-	{
-		if (vulnereable == 10) Play_SFX(3);
-		alert_time = 0;
-	}
-	
 	Put_sprite(8, 95, 36, 18, 24, bird_title_frame, 1);	
 	Put_sprite(9, 210, 40, 10, 10, bird_tokeep[0], 2);	
 	Put_sprite(9, 227, 40, 10, 10, bird_tokeep[1], 2);	
-	switch( (vulnereable_time < 15 ? 1 : 0) + (vulnereable_time > 30 ? 2 : 0) )
+	
+	if (vulnereable == 10)
 	{
-		case 1:
-			Put_sprite(5, 120, 30, 10, 10, bird_numb[0]+vulnereable, 3);	
-			Put_sprite(5, 150, 30, 10, 10, bird_numb[1]+vulnereable, 3);	
-			Put_sprite(5, 180, 30, 10, 10, bird_numb[2]+vulnereable, 3);	
-		break;
-		case 2:
-			vulnereable_time = 0;
-		break;
+		alert_time++;
+		if (alert_time > 45)
+		{
+			Play_SFX(3);
+			alert_time = 0;
+		}
+		switch( (vulnereable_time < 15 ? 1 : 0) + (vulnereable_time > 30 ? 2 : 0) )
+		{
+			case 1:
+				Put_sprite(5, 120, 30, 10, 10, bird_numb[0]+10, 3);	
+				Put_sprite(5, 150, 30, 10, 10, bird_numb[1]+10, 3);	
+				Put_sprite(5, 180, 30, 10, 10, bird_numb[2]+10, 3);	
+			break;
+			case 2:
+				vulnereable_time = 0;
+			break;
+		}
+	}
+	else
+	{
+		Put_sprite(5, 120, 30, 10, 10, bird_numb[0], 3);	
+		Put_sprite(5, 150, 30, 10, 10, bird_numb[1], 3);	
+		Put_sprite(5, 180, 30, 10, 10, bird_numb[2], 3);
 	}
 	
 	if (go == 1)
@@ -819,7 +828,7 @@ void Load_Highscore()
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.rubbybird100", getenv("HOME"));
 		mkdir(letsgohomedir, 0755);
 		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
-	#elif defined(SAILFISHOS)
+	#elif defined(SELFISHOS)
 		/* Saves in the config directory */
 		char letsgohomedir[256];
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.config/harbour-rubbybird100", getenv("HOME"));
@@ -872,7 +881,7 @@ void Save_Highscore()
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.rubbybird100", getenv("HOME"));
 		mkdir(letsgohomedir, 0755);
 		snprintf(directory, sizeof(directory), "%s/rubbybird100.save", letsgohomedir);
-	#elif defined(SAILFISHOS)
+	#elif defined(SELFISHOS)
 		/* Saves in the config directory */
 		char letsgohomedir[256];
 		snprintf(letsgohomedir, sizeof(letsgohomedir), "%s/.config/harbour-rubbybird100", getenv("HOME"));

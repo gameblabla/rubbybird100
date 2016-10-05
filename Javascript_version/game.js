@@ -276,8 +276,6 @@ function Draw_time(y, mode)
 	hour_toshow[0] = ((hour[mode] / 10) % 10) | 0;
 	hour_toshow[1] = ((hour[mode]) % 10) | 0;
 	
-	console.log(seconds[0]);
-	
 	Put_sprite(13, 95, 70+y, 20, 20, hour_toshow[0], 1);	
 	Put_sprite(13, 114, 70+y, 20, 20, hour_toshow[1], 1);	
 	Put_image(5,132,80+y);
@@ -323,7 +321,6 @@ function thegame_ingame()
 	if (microseconds > 59)
 	{
 		seconds[0] = seconds[0] + 1;
-			console.log(seconds[0]);
 		microseconds = 0;
 		if (seconds[0] > 59)
 		{
@@ -434,27 +431,36 @@ function Draw_scorebirds_onscreen()
 		vulnereable = 10;
 		vulnereable_time++;
 	}
-	
-	alert_time++;
-	if (alert_time > 45)
-	{
-		if (vulnereable == 10) sound[3].play();
-		alert_time = 0;
-	}
-	
+
 	Put_sprite(12, 95, 36, 18, 24, bird_title_frame, 1);	
 	Put_sprite(7, 210, 40, 20, 20, bird_tokeep[0], 1);	
 	Put_sprite(7, 227, 40, 20, 20, bird_tokeep[1], 1);	
-	switch( (vulnereable_time < 15 ? 1 : 0) + (vulnereable_time > 30 ? 2 : 0) )
+	
+	if (vulnereable == 10)
 	{
-		case 1:
-			Put_sprite(14, 120, 30, 30, 30, bird_numb[0]+vulnereable, 1);	
-			Put_sprite(14, 150, 30, 30, 30, bird_numb[1]+vulnereable, 1);	
-			Put_sprite(14, 180, 30, 30, 30, bird_numb[2]+vulnereable, 1);	
-		break;
-		case 2:
-			vulnereable_time = 0;
-		break;
+		alert_time++;
+		if (alert_time > 45)
+		{
+			sound[3].play();
+			alert_time = 0;
+		}
+		switch( (vulnereable_time < 15 ? 1 : 0) + (vulnereable_time > 30 ? 2 : 0) )
+		{
+			case 1:
+				Put_sprite(14, 120, 30, 30, 30, bird_numb[0]+10, 1);	
+				Put_sprite(14, 150, 30, 30, 30, bird_numb[1]+10, 1);	
+				Put_sprite(14, 180, 30, 30, 30, bird_numb[2]+10, 1);	
+			break;
+			case 2:
+				vulnereable_time = 0;
+			break;
+		}
+	}
+	else
+	{
+		Put_sprite(14, 120, 30, 30, 30, bird_numb[0], 1);	
+		Put_sprite(14, 150, 30, 30, 30, bird_numb[1], 1);	
+		Put_sprite(14, 180, 30, 30, 30, bird_numb[2], 1);
 	}
 	
 	if (go == 1 && birds_dead == 100)
