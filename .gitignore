@@ -11,8 +11,8 @@
 .settings
 
 Android_version/jni/SDL2
-Android_version/jni/SDL2_mixer/
-Android_version/jni/SDL2_image/
+Android_version/jni/SDL2_mixer
+Android_version/jni/SDL2_image
 
 # Generated files
 bin/
