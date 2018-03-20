@@ -4,8 +4,8 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := main
 
-SDL_PATH := ../SDL
-SDL_MIXER_PATH := ../SDL_mixer
+SDL_PATH := ../SDL2
+SDL_MIXER_PATH := ../SDL2_mixer
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include $(LOCAL_PATH)/$(SDL_MIXER_PATH)
 

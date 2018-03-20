@@ -1,6 +1,7 @@
-PATH="/opt/android/android-ndk-r12b:$PATH"
-PATH="/opt/android/android-sdk-linux/tools:$PATH"
-PATH="/opt/android/android-sdk-linux/platform-tools:$PATH"
+PATH="/opt/android/android-sdk:$PATH"
+PATH="/opt/android/android-sdk/tools:$PATH"
+PATH="/opt/android/android-sdk/platform-tools:$PATH"
+PATH="/opt/android/android-sdk/ndk-bundle:$PATH"
 rm -r ./gen ./obj ./bin
 
 ndk-build -j7

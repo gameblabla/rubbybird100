@@ -13,13 +13,13 @@
 		android:text="Rubby Bird 100"
 	/>
 	
-    <com.google.android.gms.ads.AdView
+    <!--<com.google.android.gms.ads.AdView
         android:id="@+id/ad_view"
         android:layout_width="320px"
         android:layout_height="50px"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-8747716077875575/6311698043">
-	</com.google.android.gms.ads.AdView>
+	</com.google.android.gms.ads.AdView>-->
 	
 </LinearLayout>
 

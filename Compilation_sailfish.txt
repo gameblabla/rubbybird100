@@ -1,2 +1,3 @@
 mb2 -t SailfishOS-i486 -s ./rpm/harbour-sdltest.spec build
+
 mb2 -t SailfishOS-armv7hl -s ./rpm/harbour-sdltest.spec build
