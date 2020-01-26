@@ -13,6 +13,12 @@
 Android_version/jni/SDL2
 Android_version/jni/SDL2_mixer
 Android_version/jni/SDL2_image
+Android_version/gradle
+Android_version/.gradle
+Android_version/libs
+*.o
+*.apk
+*.a
 
 # Generated files
 bin/

@@ -26,6 +26,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
+
 #ifndef ANDROID
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -293,11 +294,7 @@ void results_screen()
 		Draw_time(200, NORMAL);	
 		if (touch.state > 0)
 		{
-			if (touch.x > 81 && touch.x < 248 && touch.y > 293 && touch.y < 362)
-			{
-				share_url();
-			}
-			else if (touch.x > 69 && touch.x < 264 && touch.y > 380 && touch.y < 444)
+			if (touch.x > 69 && touch.x < 264 && touch.y > 380 && touch.y < 444)
 			{
 				gameover_x = 0;
 				toTitlescreen();
@@ -313,7 +310,7 @@ void results_screen()
  * 
 */
 
-inline void toTitlescreen()
+void toTitlescreen()
 {
 	game_mode = TITLESCREEN;
 	UnDarken(2);
@@ -340,6 +337,8 @@ inline void toTitlescreen()
 	seconds[NORMAL] = 0;
 	Init_birds();
 	birds_dead = 0;
+	
+	Play_Music(1);
 }
 
 /*
@@ -488,7 +487,7 @@ void Init_birds()
 */
 
 
-inline void animate_bird()
+void animate_bird()
 {
 	bird_title_time++;
 	if (bird_title_time > 8)
@@ -710,111 +709,10 @@ short rand_a_b(short a, short b)
 
 /*
  * 
- * Misc stuff : Share URL for Android/iOS, Save/Load Highscore...
+ * Misc stuff : Save/Load Highscore...
  * 
 */
 
-/*
- *  SDL_OpenURL from libSDL project
- *  https://bugzilla.libsdl.org/show_bug.cgi?id=2783
- *  My license doesn't cover this code.
-*/
-#ifndef ANDROID
-static int SDL_OpenURL(const char *url)
-{
-    pid_t pid1;
-    int status;
-
-    // Usual fork. (cannot use "vfork()" here, because after we will use "vfork()" which is
-    // different from "_exit()" and "exec*()" that are the only allowed functions).
-    pid1 = fork();
-    if (pid1 == 0) {
-        // Child process
-
-        // ****************************************
-        // Notice this is "vfork()" and not "fork()"
-        // See restrictions in documentation
-        // ****************************************
-        pid_t pid2 = vfork();
-        if (pid2 == 0) {
-            // Grand child process will try to launch the url
-            execlp("xdg-open", "xdg-open", url, (char *)0);
-			_exit(EXIT_FAILURE);
-        } else if (pid2 < 0) {
-            // Error forking
-			_exit(EXIT_FAILURE);
-        } else {
-            // Child process doesn't wait for Grand child process which *might* be blocking.
-            // Success forking
-            _exit(EXIT_SUCCESS);
-        }
-    } else if (pid1 < 0) {
-        return -1; // Error forking
-    } else {
-        if (waitpid(pid1, &status, 0) == pid1) {
-             if (WIFEXITED(status)) {
-                 if (WEXITSTATUS(status) == 0) {
-                     return 0; // Sucess
-                 } else {
-                     return -1; // Error xdg-open
-                 }
-             } else {
-                return -1; // Error in Child process
-             }
-        } else {
-            return -1; // Error waiting for Child process
-        }
-    }
-
-    return 0;
-}
-#endif
-
-
-void share_url()
-{
-	char tmp[300];
-	/*
-	 * This needs a patched SDL2 with SDL_OpenURL.
-	 * As of my writing, it is still in the discussion stages unfortunely...
-	 * On other platforms it could be replaced with equivalent but on Android ?
-	 * Not so easily... 
-	*/
-#ifdef ANDROID
-	int size_str;
-	if (hour[NORMAL] == 0 && minutes[NORMAL] == 0)
-	{
-		snprintf(tmp, sizeof(tmp), "twitter://post?message=I have rubbed 100 birds for %d seconds! ", seconds[NORMAL]);
-		size_str = 62;
-	}
-	else if (hour[NORMAL] == 0 && minutes[NORMAL] > 0)
-	{
-		snprintf(tmp, sizeof(tmp), "twitter://post?message=I have rubbed 100 birds for %dm:%ds! ", minutes[NORMAL], seconds[NORMAL]);
-		size_str = 60;
-	}
-	else
-	{
-		snprintf(tmp, sizeof(tmp), "twitter://post?message=I have rubbed 100 birds for %dh:%dm:%ds! ", hour[NORMAL], minutes[NORMAL], seconds[NORMAL]);
-		size_str = 64;
-	}
-#else
-	if (hour[NORMAL] == 0 && minutes[NORMAL] == 0)
-	{
-		snprintf(tmp, sizeof(tmp), "https://twitter.com/intent/tweet?text=I have rubbed 100 birds for %d seconds! ", seconds[NORMAL]);
-	}
-	else if (hour[NORMAL] == 0 && minutes[NORMAL] > 0)
-	{
-		snprintf(tmp, sizeof(tmp), "https://twitter.com/intent/tweet?text=I have rubbed 100 birds for %dm:%ds! ", minutes[NORMAL], seconds[NORMAL]);
-	}
-	else
-	{
-		snprintf(tmp, sizeof(tmp), "https://twitter.com/intent/tweet?text=I have rubbed 100 birds for %dh:%dm:%ds! ", hour[NORMAL], minutes[NORMAL], seconds[NORMAL]);
-	}
-#endif
-	strcat(tmp, "%23rubbybird100 https://play.google.com/store/apps/details?id=com.gameblabla.rubbybird100");
-	Play_SFX(1);
-	SDL_OpenURL(tmp);
-}
 
 void Load_Highscore()
 {
