@@ -1,14 +1,18 @@
-
-
 Rubby Bird 100
-======
+=============
 
 This is a sequel to Rubby Bird 100. In this one, rather than rubbing 1 bird, you've got to rub 100 of them instead !
 Do you think you're up to the challenge ?
 
 
-Dev
-======
+Dev (Android)
+=============
+
+
+Make sure you have SDL2, SDL2_mixer extracted in their own respective folders in
+Android_version/jni/
+
+as SDL2 and SDL2_mixer respectively.
 
 The game requires the SDL_OpenURL patch for Android. 
 
@@ -24,4 +28,4 @@ SDL2 needs to be patched for SDL_OpenURL.
 
 - Make sure the Android-sdk and NDK are installed. Installing the NDK through the SDK tools is recommended (/opt/android/android-sdk by default)
 
-And that should do it. Linux compiling is easier, just run make in the folder.
+That should do it. Linux compiling is easier, just run make in the folder.
