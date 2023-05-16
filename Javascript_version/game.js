@@ -72,6 +72,9 @@ window.onload = function()
 		img_memory[i] = new Image();
 	}
 
+	hour[1] = 0;
+	minutes[1] = 0;
+	seconds[1] = 0;
 	hour[1] = localStorage.getItem("rubbybird100-hour") || 0; 
 	minutes[1] = localStorage.getItem("rubbybird100-minute") || 0; 
 	seconds[1] = localStorage.getItem("rubbybird100-second") || 0; 
